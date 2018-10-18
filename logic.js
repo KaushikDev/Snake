@@ -1,6 +1,6 @@
 window.onload = function(){
 	
-	var gameSpeed = 60;
+	var gameSpeed = 80;
 	
 	var cvs = document.getElementById("canvas");
 	var ctx = cvs.getContext("2d");
@@ -40,7 +40,7 @@ window.onload = function(){
 		
 	}
 	
-	function drawSnake(x,y, color){
+	function drawSnake(x,y,color){
 			
 				
 				ctx.fillStyle = color;
@@ -54,7 +54,7 @@ window.onload = function(){
 	}
 	
 	
-	var len = 4;
+	var len = 2;
 	var snake = [];
 	
 	for(var i=len-1;i>=0;i--){
@@ -70,10 +70,10 @@ window.onload = function(){
 	
 	
 	function drawFood(x,y){
-	ctx.fillStyle = "yellow";
+	ctx.fillStyle = "white";
 	ctx.fillRect(x*snakeW,y*snakeH,snakeW,snakeH);
 	
-	ctx.strokeStyle = "red";
+	ctx.strokeStyle = "white";
 	ctx.strokeRect(x*snakeW,y*snakeH,snakeW,snakeH);
 	}
 	
@@ -101,8 +101,14 @@ window.onload = function(){
 		for(var i=0;i<snake.length;i++){
 			var x = snake[i].x;
 			var y = snake[i].y;
-			var headColor = (i==0) ? "red":"white";
-			drawSnake(x,y,headColor);
+			if(i==0){
+				var color = "red";
+			}
+			else if (i==snake.length-1){
+				var color = "gray";
+			}
+			else var color = "white";
+			drawSnake(x,y,color);
 		}
 		
 		drawFood(food.x, food.y);
@@ -120,6 +126,7 @@ window.onload = function(){
 		if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH || checkCollision(snakeX,snakeY,snake) ){
 			//location.reload();
 			dead.play();
+			
 			location.reload();
 			
 		}
