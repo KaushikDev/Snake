@@ -1,11 +1,12 @@
 window.onload = function(){
 	
+	var gameSpeed = 60;
 	
 	var cvs = document.getElementById("canvas");
 	var ctx = cvs.getContext("2d");
 	
-	var cvsW = cvs.width;
-	var cvsH = cvs.height;
+	var cvsW = cvs.width = window.innerWidth * 0.99;
+	var cvsH = cvs.height = window.innerHeight * 0.90;
 	
 	
 	var snakeW = 10;
@@ -13,6 +14,12 @@ window.onload = function(){
 	
 	var direction = "right";
 	
+	var score = 0;
+	
+	const dead = new Audio();
+	const eat = new Audio();
+	dead.src = "audio/dead.mp3";
+	eat.src = "audio/eat.mp3";
 	
 	document.addEventListener("keydown", getDirection);
 	
@@ -74,6 +81,15 @@ window.onload = function(){
 		return false;
 	}
 	
+	
+	function drawScore(x){
+		ctx.fillStyle = "Yellow";
+		ctx.font = "20px Verdana";
+		ctx.fillText("Score: "+x,5, cvsH-5);
+		
+	}
+	
+	
 	function draw(){
 		ctx.clearRect(0,0,cvsW,cvsH);
 		for(var i=0;i<snake.length;i++){
@@ -95,7 +111,11 @@ window.onload = function(){
 					
 		
 		if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH || checkCollision(snakeX,snakeY,snake) ){
-			location.reload();
+			//location.reload();
+			dead.play();
+			if(confirm("Game Over. Your Score : "+ score)){
+				location.reload();
+			}else window.location.href = "http://google.com";
 		}
 		
 		
@@ -105,6 +125,8 @@ window.onload = function(){
 		y : Math.round(Math.random()*(cvsH/snakeH-1)+1)
 	}
 			var newHead = {x:snakeX, y:snakeY};
+			eat.play();
+			score++;
 		}
 		else {
 			snake.pop();	
@@ -115,10 +137,23 @@ window.onload = function(){
 		
 		
 		snake.unshift(newHead);
+		drawScore(score);
 	}
 	
-	setInterval(draw, 60);
+	setInterval(draw, gameSpeed);
 	
+	
+	function onDeviceReady(){
+		document.addEventListener("backbutton", onBackKeyDown, false);
+		document.addEventListener("saveButton", save, false);
+		devicePlatform = device.platform;
+		console.log(devicePlatform);
+		}
+		function onBackKeyDown() {
+			if(confirm("Hey!! You really wanna leave??")){
+				navigator.app.exitApp();
+			}
+ 		}
 	
 	
 }
