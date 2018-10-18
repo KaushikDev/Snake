@@ -7,7 +7,7 @@
 
 <!-- versionCode is optional and Android only -->
 
-  <name>Dictionary</name>
+  <name>ClassicSnake</name>
   <platform name="ios" />
   <platform name="android" />
   <platform name="winphone" />
