@@ -9,8 +9,8 @@ window.onload = function(){
 	var cvsH = cvs.height = window.innerHeight * 0.90;
 	
 	
-	var snakeW = 10;
-	var snakeH = 10;
+	var snakeW = 20;
+	var snakeH = 20;
 	
 	var direction = "right";
 	
@@ -40,12 +40,17 @@ window.onload = function(){
 		
 	}
 	
-	function drawSnake(x,y){
-	ctx.fillStyle = "#fff";
-	ctx.fillRect(x*snakeW,y*snakeH,snakeW,snakeH);
+	function drawSnake(x,y, color){
+			
+				
+				ctx.fillStyle = color;
+				ctx.fillRect(x*snakeW,y*snakeH,snakeW,snakeH);
 	
-	ctx.fillStyle = "#000";
-	ctx.strokeRect(x*snakeW,y*snakeH,snakeW,snakeH);
+			
+				ctx.strokeStyle = "black";
+				ctx.strokeRect(x*snakeW,y*snakeH,snakeW,snakeH);
+		
+
 	}
 	
 	
@@ -58,16 +63,17 @@ window.onload = function(){
 	
 	
 	food = {
-		x : Math.round(Math.random()*(cvsW/snakeW-1)+1),
-		y : Math.round(Math.random()*(cvsH/snakeH-1)+1)
+		x : Math.floor(Math.random()*((cvsW/snakeW)-1)+1),
+		y : Math.floor(Math.random()*((cvsH/snakeH)-1)+1)
 	}
+	
 	
 	
 	function drawFood(x,y){
 	ctx.fillStyle = "yellow";
 	ctx.fillRect(x*snakeW,y*snakeH,snakeW,snakeH);
 	
-	ctx.fillStyle = "#fff";
+	ctx.strokeStyle = "red";
 	ctx.strokeRect(x*snakeW,y*snakeH,snakeW,snakeH);
 	}
 	
@@ -95,7 +101,8 @@ window.onload = function(){
 		for(var i=0;i<snake.length;i++){
 			var x = snake[i].x;
 			var y = snake[i].y;
-			drawSnake(x,y);
+			var headColor = (i==0) ? "red":"white";
+			drawSnake(x,y,headColor);
 		}
 		
 		drawFood(food.x, food.y);
@@ -113,20 +120,23 @@ window.onload = function(){
 		if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH || checkCollision(snakeX,snakeY,snake) ){
 			//location.reload();
 			dead.play();
-			if(confirm("Game Over. Your Score : "+ score)){
-				location.reload();
-			}else window.location.href = "http://google.com";
+			location.reload();
+			
 		}
 		
 		
 		if(snakeX == food.x && snakeY == food.y){
 			food = {
-		x : Math.round(Math.random()*(cvsW/snakeW-1)+1),
-		y : Math.round(Math.random()*(cvsH/snakeH-1)+1)
+		x : Math.floor(Math.random()*((cvsW/snakeW)-1)+1),
+		y : Math.floor(Math.random()*((cvsH/snakeH)-1)+1)
 	}
+	
 			var newHead = {x:snakeX, y:snakeY};
 			eat.play();
 			score++;
+			if((score%2)==0){
+				gameSpeed-=2;
+			}
 		}
 		else {
 			snake.pop();	
@@ -139,7 +149,7 @@ window.onload = function(){
 		snake.unshift(newHead);
 		drawScore(score);
 	}
-	
+	console.log(snake);
 	setInterval(draw, gameSpeed);
 	
 	
