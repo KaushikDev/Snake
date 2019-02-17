@@ -5,8 +5,8 @@ window.onload = function(){
 	var cvs = document.getElementById("canvas");
 	var ctx = cvs.getContext("2d");
 	
-	var cvsW = cvs.width = window.innerWidth * 0.99;
-	var cvsH = cvs.height = window.innerHeight * 0.90;
+	var cvsW = cvs.width = window.innerWidth;
+	var cvsH = cvs.height = window.innerHeight;
 	
 	
 	var snakeW = 20;
@@ -89,8 +89,8 @@ window.onload = function(){
 	
 	
 	function drawScore(x){
-		ctx.fillStyle = "Yellow";
-		ctx.font = "20px Verdana";
+		ctx.fillStyle = "White";
+		ctx.font = "20px Cinzel";
 		ctx.fillText("Score: "+x,5, cvsH-5);
 		
 	}
@@ -124,10 +124,13 @@ window.onload = function(){
 					
 		
 		if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH || checkCollision(snakeX,snakeY,snake) ){
-			//location.reload();
+			
 			dead.play();
 			
-			location.reload();
+			//location.reload();
+			
+			alert("Game Over. Your Score is : "+ score);
+			window.location = "index.html";
 			
 		}
 		
