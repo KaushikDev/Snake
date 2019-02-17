@@ -9,8 +9,8 @@ window.onload = function(){
 	var cvsH = cvs.height = window.innerHeight;
 	
 	
-	var snakeW = 20;
-	var snakeH = 20;
+	var snakeW = 15;
+	var snakeH = 15;
 	
 	var direction = "right";
 	
@@ -70,7 +70,7 @@ window.onload = function(){
 	
 	
 	function drawFood(x,y){
-	ctx.fillStyle = "white";
+	ctx.fillStyle = "blue";
 	ctx.fillRect(x*snakeW,y*snakeH,snakeW,snakeH);
 	
 	ctx.strokeStyle = "white";
@@ -90,7 +90,7 @@ window.onload = function(){
 	
 	function drawScore(x){
 		ctx.fillStyle = "White";
-		ctx.font = "20px Cinzel";
+		ctx.font = "30px Cinzel";
 		ctx.fillText("Score: "+x,5, cvsH-5);
 		
 	}
@@ -105,7 +105,7 @@ window.onload = function(){
 				var color = "red";
 			}
 			else if (i==snake.length-1){
-				var color = "gray";
+				var color = "black";
 			}
 			else var color = "white";
 			drawSnake(x,y,color);

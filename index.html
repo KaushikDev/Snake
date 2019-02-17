@@ -16,40 +16,55 @@ body{
 color: black;
 font-family: 'Cinzel', serif;
 font-size: 20px;
- background-color: #f1f1f1;
+background-color:green;
 }
 
 #header{
 width:auto;
 height: 40%;
+color:white;
 }
 
 #playRow{
 width:auto;
 height: 50%;
+color:white;
 }
 
 
 #footer{
 width:auto;
 height: 10%;
+color:white;
 }
 
+a, p{
+
+color:white;
+}
 .btn{
 background-color:transparent;
 font-size:100px;
 color:red;
 }
 
+img{
+height:200px;
+width:200px;
+border-radius:50%;
+}
+
 	</style>
 	<div class="container">
 	
 		<div id="header" class="row text-center">
-			<h1>Snake Game</h1>
+			<h1>Cassic Snake Game</h1>
 		</div>
 	
 		<div id="playRow" class="row text-center">
-			<button class="btn btn-lg" onclick="window.location.href='gameScreen.html'"><i class="fa fa-play-circle-o"></i></button>
+			<!--<button class="btn btn-lg" onclick="window.location.href='gameScreen.html'"><i class="fa fa-play-circle-o"></i></button>-->
+			<a href="gameScreen.html"><img src="snakebackground.jpg"></a>
+			
 			<p>Click to play the Game</p>
 		</div>
 	
