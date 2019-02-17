@@ -22,6 +22,52 @@ window.onload = function(){
 	eat.src = "audio/eat.mp3";
 	
 	document.addEventListener("keydown", getDirection);
+//testing some logic
+
+var startX = 0;
+var startY = 0;
+
+document.addEventListener('touchstart', function(e){
+    var touch = e.changedTouches[0]
+    startX = touch.pageX
+    startY = touch.pageY
+    startTime = new Date().getTime()
+    e.preventDefault()
+}, false)
+
+document.addEventListener('touchmove', function(e){
+    e.preventDefault()
+}, false)
+
+document.addEventListener('touchend', function(e){
+    var touch = e.changedTouches[0]
+    distX = touch.pageX - startX
+    distY = touch.pageY - startY
+
+    if (Math.abs(distX) > Math.abs(distY)) {
+      if (distX > 0 && direction!="left") {
+        direction = "right";
+      }
+      else if (distX < 0 && direction!="right") {
+        direction = "left";
+      }
+    } else {
+      if (distY < 0 && direction!="down") {
+        direction = "up";
+      }
+      else if (distY > 0 && direction!="up") {
+       direction = "down";
+      }
+    }
+    e.preventDefault();
+
+}, false)
+
+
+//testing ends
+	
+	
+	
 	
 	function getDirection(e){
 		if(e.keyCode == 37 && direction!="right"){
@@ -36,8 +82,6 @@ window.onload = function(){
 					else if(e.keyCode == 40 && direction!="up"){
 						direction = "down";
 					}
-		
-		
 	}
 	
 	function drawSnake(x,y,color){
@@ -126,9 +170,6 @@ window.onload = function(){
 		if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH || checkCollision(snakeX,snakeY,snake) ){
 			
 			dead.play();
-			
-			//location.reload();
-			
 			alert("Game Over. Your Score is : "+ score);
 			window.location = "index.html";
 			
