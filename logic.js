@@ -170,7 +170,13 @@ document.addEventListener('touchend', function(e){
 		if(snakeX < 0 || snakeY < 0 || snakeX >= cvsW/snakeW || snakeY >= cvsH/snakeH || checkCollision(snakeX,snakeY,snake) ){
 			
 			dead.play();
-			alert("Game Over. Your Score is : "+ score);
+			var confirmation = confirm("Game Over.\nYour Score is : "+ score+ ".\n\nPress 'OK' to replay , press 'Cancel' to exit!");
+			
+			if(confirmation){
+				
+				window.location = "gameScreen.html";
+			}
+			else
 			window.location = "index.html";
 			
 		}
